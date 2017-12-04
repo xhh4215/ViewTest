@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.textViewId);
-        mGestureDetector = new GestureDetector(new MyGestureListener(MainActivity.this));
-        mGestureDetector.setOnDoubleTapListener(new MyDoubleGestureListener(MainActivity.this));
+//        mGestureDetector = new GestureDetector(new MyGestureListener(MainActivity.this));
+//        mGestureDetector.setOnDoubleTapListener(new MyDoubleGestureListener(MainActivity.this));
         mGestureDetector = new GestureDetector(new MySimpleGestureListener(MainActivity.this));
         mTextView.setOnTouchListener(this);
         mTextView.setFocusable(true);

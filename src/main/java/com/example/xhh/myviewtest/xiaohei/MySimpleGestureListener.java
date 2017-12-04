@@ -5,15 +5,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
-
-import com.example.xhh.myviewtest.MainActivity;
-
 /**
  * Created by xhh on 2017/12/4.
  */
 
 public class MySimpleGestureListener extends GestureDetector.SimpleOnGestureListener {
     private Context context;
+    final int FLING_MIN_DISTANCE = 100, FLING_MIN_VELOCITY = 200;
 
     public MySimpleGestureListener(Context mContext) {
         context = mContext;
@@ -57,12 +55,31 @@ public class MySimpleGestureListener extends GestureDetector.SimpleOnGestureList
                 .show();
     }
 
+    /**
+     * 触发条件 ：
+     * X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒
+     * 参数解释：
+     * e1：第1个ACTION_DOWN MotionEvent
+     * e2：最后一个ACTION_MOVE MotionEvent
+     * velocityX：X轴上的移动速度，像素/秒
+     * velocityY：Y轴上的移动速度，像素/秒
+     */
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                            float velocityY) {
         Log.i("MyGesture", "onFling");
         Toast.makeText(context, "onFling", Toast.LENGTH_LONG)
                 .show();
-        return true;
+        if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY){
+            // Fling left
+            Log.i("MyGesture", "Fling left");
+            Toast.makeText(context, "Fling Left", Toast.LENGTH_SHORT).show();
+        }  else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE
+                    && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
+        // Fling right
+        Log.i("MyGesture", "Fling right");
+        Toast.makeText(context, "Fling Right", Toast.LENGTH_SHORT).show();
+    }
+            return true;
     }
 
     /*****OnDoubleTapListener的函数*****/
